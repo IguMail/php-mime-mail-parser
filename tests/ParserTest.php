@@ -1738,15 +1738,11 @@ variances available &nbsp;</div></body></html>'
         // run middlware in factory
         $middlewareCallCount = 0;
         $mimePart = new MimePart('1', array());
-        $middlewareStack = MiddlewareStack::factory(array(
-            new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
-                $middlewareCallCount++;
-                return $next($mimePart);
-            }),
-            new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
-                $middlewareCallCount++;
-                return $next($mimePart);
-            })));
+        $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+            $middlewareCallCount++;
+            return $next($mimePart);
+        });
+        $middlewareStack = MiddlewareStack::factory(array($middleWare, $middleWare));
 
         // executes the middleware
         $middlewareStack->parse($mimePart);
