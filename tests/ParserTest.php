@@ -1746,8 +1746,7 @@ variances available &nbsp;</div></body></html>'
             new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
                 $middlewareCallCount++;
                 return $next($mimePart);
-            })
-        ));
+            })));
 
         // executes the middleware
         $middlewareStack->parse($mimePart);
